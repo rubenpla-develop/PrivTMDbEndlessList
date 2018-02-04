@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">PrivTMDbEndelessList</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="bottom_navigation_popular_movies_tab">Popular</string>
+    <string name="bottom_navigation_search_movies_tab">Search</string>
 </resources>

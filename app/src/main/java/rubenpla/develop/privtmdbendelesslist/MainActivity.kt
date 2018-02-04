@@ -10,12 +10,12 @@ class MainActivity : AppCompatActivity() {
     private val mOnNavigationItemSelectedListener = BottomNavigationView
             .OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
-            R.id.navigation_home -> {
-                message.setText(R.string.title_home)
+            R.id.popular_movies -> {
+                message.setText(R.string.bottom_navigation_popular_movies_tab)
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_dashboard -> {
-                message.setText(R.string.title_dashboard)
+            R.id.search_movies -> {
+                message.setText(R.string.bottom_navigation_search_movies_tab)
                 return@OnNavigationItemSelectedListener true
             }
         }
