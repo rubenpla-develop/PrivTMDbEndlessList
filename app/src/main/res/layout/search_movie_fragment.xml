@@ -4,12 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/searchMovText"
+    <AutoCompleteTextView
+        android:id="@+id/search_movies_search_view_component"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="SEARCH MOVIES FRAGMENT"
-        android:textSize="22sp"
-        android:layout_centerInParent="true"/>
+        android:layout_height="wrap_content" />
+
+
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/search_movies_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/search_movies_search_view_component"/>
 
 </RelativeLayout>

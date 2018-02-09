@@ -1,5 +1,12 @@
 <resources>
-    <string name="app_name">PrivTMDbEndelessList</string>
+    <string name="app_name">PrivTMDbEndlessList</string>
+
+    <!-- Bottom Navigation Bar fragment's title strings -->
     <string name="bottom_navigation_popular_movies_tab">Popular</string>
     <string name="bottom_navigation_search_movies_tab">Search</string>
+
+    <!-- Misc -->
+    <string name="movie_item_list_image_content_description">movie poster holder view</string>
+
+
 </resources>
