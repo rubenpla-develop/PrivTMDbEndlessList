@@ -1,4 +1,4 @@
-package rubenpla.develop.privtmdbendelesslist
+package rubenpla.develop.privtmdbendlesslist
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

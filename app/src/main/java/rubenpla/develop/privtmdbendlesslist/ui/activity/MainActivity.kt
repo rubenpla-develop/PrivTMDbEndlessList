@@ -1,13 +1,13 @@
-package rubenpla.develop.privtmdbendelesslist.ui.activity
+package rubenpla.develop.privtmdbendlesslist.ui.activity
 
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView.OnNavigationItemSelectedListener
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import rubenpla.develop.privtmdbendelesslist.R
-import rubenpla.develop.privtmdbendelesslist.ui.fragment.PopularMoviesFragment
-import rubenpla.develop.privtmdbendelesslist.ui.fragment.SearchMovieFragment
+import rubenpla.develop.privtmdbendlesslist.R
+import rubenpla.develop.privtmdbendlesslist.ui.fragment.PopularMoviesFragment
+import rubenpla.develop.privtmdbendlesslist.ui.fragment.SearchMovieFragment
 
 class MainActivity : AppCompatActivity() {
 

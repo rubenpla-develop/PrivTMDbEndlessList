@@ -1,4 +1,4 @@
-package rubenpla.develop.privtmdbendelesslist
+package rubenpla.develop.privtmdbendlesslist
 
 import org.junit.Test
 
