@@ -91,7 +91,7 @@ class RecyclerViewScrollCallback (private val visibleThreshold : Int,
             return this
         }
 
-        fun resetStateLoading(value : Boolean) : Builder {
+        fun resetLoadingState(value : Boolean) : Builder {
             resetLoadingState = value
             return this
         }
