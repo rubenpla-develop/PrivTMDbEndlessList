@@ -11,7 +11,6 @@ interface PopularMoviesFragmentMvpContract {
 
     interface PopularMoviesFragmentView : BaseView<PopularMoviesFragmentPresenter> {
         fun showItems(items : List<Movie>)
-        fun showError(message : String)
         fun showProgress(): Boolean
         fun hideProgress(): Boolean
     }
