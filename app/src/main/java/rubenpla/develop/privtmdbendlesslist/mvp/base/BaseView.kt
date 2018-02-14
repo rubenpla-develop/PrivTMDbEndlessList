@@ -5,5 +5,5 @@ package rubenpla.develop.privtmdbendlesslist.mvp.base
  */
 interface BaseView<in T> {
     fun setPresenter(presenter : T)
-    fun showError(message : String)
+    fun showMessage(message : String)
 }

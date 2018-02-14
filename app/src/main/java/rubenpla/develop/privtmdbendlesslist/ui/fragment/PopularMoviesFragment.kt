@@ -48,7 +48,7 @@ class PopularMoviesFragment : Fragment(), PopularMoviesFragmentView {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun showError(message: String) {
+    override fun showMessage(message: String) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

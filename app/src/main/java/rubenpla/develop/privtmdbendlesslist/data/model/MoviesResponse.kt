@@ -1,4 +1,4 @@
-package rubenpla.develop.privtmdbendlesslist.mvp.model
+package rubenpla.develop.privtmdbendlesslist.data.model
 
 import com.google.gson.annotations.SerializedName
 
