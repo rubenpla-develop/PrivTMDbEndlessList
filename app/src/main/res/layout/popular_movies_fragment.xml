@@ -11,17 +11,27 @@
         <variable
             name = "popularMoviesModel"
             type = "rubenpla.develop.privtmdbendlesslist.bind.model.PopularMoviesFragmentBindModel"/>
+
+        <variable
+            name = "presenter"
+            type = "rubenpla.develop.privtmdbendlesslist.mvp.PopularMoviesFragmentMvpContract.PopularMoviesFragmentPresenter"/>
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:Context="rubenpla.develop.privtmdbendlesslist.ui.fragment.PopularMoviesFragment">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/popular_movies_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            bind:resetLoading="@{popularMoviesModel.resetLoading}"
+            bind:visibleThreshold="@{popularMoviesModel.visibleThreshold}"
+            bind:onScrolledToBottom="@{(page) -> presenter.onLoadMore(page)}"
+            tools:listitem="@layout/movie_item_list"/>
 
     </LinearLayout>
 

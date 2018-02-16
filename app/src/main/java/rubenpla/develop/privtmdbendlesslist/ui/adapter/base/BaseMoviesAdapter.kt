@@ -8,8 +8,8 @@ import rubenpla.develop.privtmdbendlesslist.bind.model.MovieBindModel
 /**
  * Created by alten on 13/2/18.
  */
-open class BaseMoviesAdapter(private  val context :
-                             Context, private val list : MutableList<MovieBindModel?>)
+open class BaseMoviesAdapter(private val context:
+                             Context?, private val list: MutableList<MovieBindModel?>)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {

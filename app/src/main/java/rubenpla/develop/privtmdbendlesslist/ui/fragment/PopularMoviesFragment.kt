@@ -1,17 +1,25 @@
 package rubenpla.develop.privtmdbendlesslist.ui.fragment
 
 import android.databinding.DataBindingUtil
-import android.graphics.Movie
 import android.os.Bundle
+import android.support.annotation.NonNull
 import android.support.v4.app.Fragment
+import android.support.v7.widget.DefaultItemAnimator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import rubenpla.develop.privtmdbendlesslist.R
 import rubenpla.develop.privtmdbendlesslist.bind.BindingComponent
+import rubenpla.develop.privtmdbendlesslist.bind.model.MovieBindModel
+import rubenpla.develop.privtmdbendlesslist.bind.model.PopularMoviesFragmentBindModel
+import rubenpla.develop.privtmdbendlesslist.data.model.MoviesResultsItem
 import rubenpla.develop.privtmdbendlesslist.databinding.PopularMoviesFragmentBinding
 import rubenpla.develop.privtmdbendlesslist.mvp.PopularMoviesFragmentMvpContract.PopularMoviesFragmentPresenter
 import rubenpla.develop.privtmdbendlesslist.mvp.PopularMoviesFragmentMvpContract.PopularMoviesFragmentView
+import rubenpla.develop.privtmdbendlesslist.mvp.presenter.PopularMoviesFragmentPresenterImpl
+import rubenpla.develop.privtmdbendlesslist.ui.adapter.PopularMoviesAdapter
+import rubenpla.develop.privtmdbendlesslist.util.Mapper
 
 /**
  * Created by alten on 4/2/18.
@@ -19,6 +27,10 @@ import rubenpla.develop.privtmdbendlesslist.mvp.PopularMoviesFragmentMvpContract
 class PopularMoviesFragment : Fragment(), PopularMoviesFragmentView {
 
     private lateinit var presenter : PopularMoviesFragmentPresenter
+    private lateinit var popularMoviesFragmentModel: PopularMoviesFragmentBindModel
+    private lateinit var popularMoviesAdapter : PopularMoviesAdapter
+    private var list = arrayListOf<MovieBindModel?>()
+    private lateinit var binding : PopularMoviesFragmentBinding
 
     companion object {
 
@@ -27,42 +39,63 @@ class PopularMoviesFragment : Fragment(), PopularMoviesFragmentView {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        var binding : PopularMoviesFragmentBinding = DataBindingUtil.inflate(inflater,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = DataBindingUtil.inflate(inflater,
                 R.layout.popular_movies_fragment, container, false,
                 BindingComponent())
 
         return binding.root
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setBindings()
+
+        popularMoviesAdapter = PopularMoviesAdapter(context, list) {}
+        presenter = PopularMoviesFragmentPresenterImpl(this)
+        binding.popularMoviesRecyclerview.itemAnimator = DefaultItemAnimator()
+        binding.popularMoviesRecyclerview.adapter =popularMoviesAdapter
+        binding.presenter = presenter
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    private fun setBindings() {
+        popularMoviesFragmentModel = PopularMoviesFragmentBindModel()
+        popularMoviesFragmentModel.visibleThreshold = 5
+        binding.popularMoviesModel = popularMoviesFragmentModel
     }
 
-    override fun setPresenter(presenter: PopularMoviesFragmentPresenter) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun setPresenter(@NonNull presenter: PopularMoviesFragmentPresenter) {
+        this.presenter = checkNotNull(presenter)
     }
 
     override fun showMessage(message: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Toast.makeText(activity, message, Toast.LENGTH_LONG).show()
     }
 
-    override fun showItems(items: List<Movie>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun showItems(items: List<MoviesResultsItem?>?) {
+        val mappedItems = arrayListOf<MovieBindModel>()
+        items?.map { mappedItems.add(Mapper.mapToMovieBindModelFromApi(it))}
+        popularMoviesAdapter.addAll(mappedItems)
     }
 
     override fun showProgress(): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        binding.popularMoviesRecyclerview.post { popularMoviesAdapter.add(null) }
+
+        return true
     }
 
     override fun hideProgress(): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        if (list.size > 0 && null == list[list.size - 1]) {
+            popularMoviesAdapter.remove(list.size -1)
+        }
+
+        /*if (binding.isRefreshing) {
+            popularMoviesAdapter.clear()
+            binding. = false
+            mainActivityModel.resetLoading = true
+        }*/
+
+        return false
     }
-
-
 }
