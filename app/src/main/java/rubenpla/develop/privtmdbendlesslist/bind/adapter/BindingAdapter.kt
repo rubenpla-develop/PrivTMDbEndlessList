@@ -8,7 +8,7 @@ import rubenpla.develop.privtmdbendlesslist.ui.adapter.callback.RecyclerViewScro
  * Created by alten on 9/2/18.
  */
 class BindingAdapter {
-    @BindingAdapter(value = ["visibleThreshold", "resetLoading", "onScrolledToBottom"], requireAll = true)
+    @BindingAdapter(value = ["visibleThreshold", "resetLoading", "onScrolledToBottom"], requireAll = false)
     fun setRecyclerViewScrollCallback(recyclerView: RecyclerView, visibleThreshold: Int,
                                       resetLoading: Boolean,
                                       onScrolledListener : RecyclerViewScrollCallback.OnScrolledListener) {

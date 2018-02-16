@@ -15,7 +15,7 @@ import rubenpla.develop.privtmdbendlesslist.ui.adapter.base.BaseMoviesAdapter
 /**
  * Created by alten on 13/2/18.
  */
-class PopularMoviesAdapter (private val context : Context,
+class PopularMoviesAdapter (private val context : Context?,
                             private val list : MutableList<MovieBindModel?>,
                             private val listener : (MovieBindModel?) -> Unit)
     : BaseMoviesAdapter(context, list) {
@@ -50,5 +50,25 @@ class PopularMoviesAdapter (private val context : Context,
         fun bind (isIndeterminate : Boolean) {
             binding.movieItemProgressProgressbar.isIndeterminate = isIndeterminate
         }
+    }
+
+    fun add(repo : MovieBindModel?) {
+        list.add(repo)
+        notifyItemInserted(list.size -1)
+    }
+
+    fun addAll(repos : List<MovieBindModel>) {
+        list.addAll(repos)
+        notifyItemRangeChanged( repos.size,list.size -1)
+    }
+
+    fun remove(position: Int) {
+        list.removeAt(position)
+        notifyItemRemoved(list.size)
+    }
+
+    fun clear() {
+        list.clear()
+        notifyDataSetChanged()
     }
 }

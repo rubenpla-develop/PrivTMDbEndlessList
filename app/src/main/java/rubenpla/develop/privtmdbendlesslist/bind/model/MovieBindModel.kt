@@ -2,6 +2,7 @@ package rubenpla.develop.privtmdbendlesslist.bind.model
 
 import android.databinding.BaseObservable
 import android.databinding.Bindable
+import android.widget.ImageView
 import rubenpla.develop.privtmdbendlesslist.BR
 
 /**
@@ -28,5 +29,12 @@ class MovieBindModel : BaseObservable() {
         set(overview) {
             field = overview
             notifyPropertyChanged(BR.overview)
+        }
+
+        @get:Bindable
+        var image: ImageView? = null
+        set(image) {
+            field = image
+            notifyPropertyChanged(BR.image)
         }
 }
