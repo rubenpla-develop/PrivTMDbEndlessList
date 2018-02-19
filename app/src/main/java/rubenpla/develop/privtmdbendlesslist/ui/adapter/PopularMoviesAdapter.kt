@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.squareup.picasso.Picasso
 import rubenpla.develop.privtmdbendlesslist.R
 import rubenpla.develop.privtmdbendlesslist.bind.model.MovieBindModel
 import rubenpla.develop.privtmdbendlesslist.databinding.MovieItemListBinding
@@ -35,23 +36,6 @@ class PopularMoviesAdapter (private val context : Context?,
         else (holder as? ProgressbarViewHolder)?.bind(true)
     }
 
-    internal  class MovieViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
-        private val binding : MovieItemListBinding = DataBindingUtil.bind(itemView)
-
-        fun bind(movie : MovieBindModel?, listener : (MovieBindModel?) -> Unit) {
-            binding.movie = movie
-            itemView.setOnClickListener { listener(movie) }
-        }
-    }
-
-    internal class ProgressbarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val binding : MovieItemProgressBinding = DataBindingUtil.bind(itemView)
-
-        fun bind (isIndeterminate : Boolean) {
-            binding.movieItemProgressProgressbar.isIndeterminate = isIndeterminate
-        }
-    }
-
     fun add(repo : MovieBindModel?) {
         list.add(repo)
         notifyItemInserted(list.size -1)
@@ -70,5 +54,33 @@ class PopularMoviesAdapter (private val context : Context?,
     fun clear() {
         list.clear()
         notifyDataSetChanged()
+    }
+
+    /**
+     *    HOLDERS
+     **/
+    internal  class MovieViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+        private val binding : MovieItemListBinding = DataBindingUtil.bind(itemView)
+
+        fun bind(movie : MovieBindModel?, listener : (MovieBindModel?) -> Unit) {
+            Picasso.with(itemView.context)
+                    .load(movie?.imageUrl)
+                    .placeholder(R.mipmap.ic_launcher)
+                    .fit()
+                    .priority(Picasso.Priority.HIGH)
+                    .into(itemView.findViewById(R.id.movie_item_list_card_view_image_view),
+                            null)
+
+            binding.movieBindModel = movie
+            itemView.setOnClickListener { listener(movie) }
+        }
+    }
+
+    internal class ProgressbarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val binding : MovieItemProgressBinding = DataBindingUtil.bind(itemView)
+
+        fun bind (isIndeterminate : Boolean) {
+            binding.movieItemProgressProgressbar.isIndeterminate = isIndeterminate
+        }
     }
 }

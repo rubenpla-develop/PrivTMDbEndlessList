@@ -15,6 +15,13 @@ object Mapper {
         movieBindModel.movieName = movie?.title!!
         movieBindModel.overview = movie?.overview
         movieBindModel.yearOfMovie = movie?.releaseDate!!
+        movieBindModel.imageUrl = mapImageUrlToDrawable(movie.posterPath)
         return movieBindModel
+    }
+
+   private fun mapImageUrlToDrawable(urlPosterPath: String? ) : String? {
+       val urlBase = "https://image.tmdb.org/t/p/w500"
+
+       return urlBase + urlPosterPath
     }
 }
