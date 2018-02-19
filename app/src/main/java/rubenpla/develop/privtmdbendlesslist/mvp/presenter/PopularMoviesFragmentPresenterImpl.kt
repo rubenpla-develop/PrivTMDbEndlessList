@@ -57,7 +57,7 @@ class PopularMoviesFragmentPresenterImpl(private val view : PopularMoviesFragmen
 
         return Flowable.just(page)
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap { p -> popularMoviesRepository
+                .flatMap { _ -> popularMoviesRepository
                         .getPopularMoviesFromApi(BuildConfig.THE_MOVIE_DB_API_TOKEN, page)
                 }
     }
