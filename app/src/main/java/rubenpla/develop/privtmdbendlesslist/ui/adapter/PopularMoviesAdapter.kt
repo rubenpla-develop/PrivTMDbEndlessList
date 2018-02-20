@@ -51,9 +51,6 @@ class PopularMoviesAdapter (private val context : Context?,
             is MovieViewHolder -> holder.bind(list[position], listener)
             is ProgressbarViewHolder -> holder.bind(true)
         }
- /*       if (holder is MovieViewHolder)
-            holder.bind(list[position], listener)
-        else (holder as? ProgressbarViewHolder)?.bind(true)*/
     }
 
     fun add(movie: MovieBindModel?) {
