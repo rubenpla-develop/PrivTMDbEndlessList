@@ -36,14 +36,14 @@ class PopularMoviesAdapter (private val context : Context?,
         else (holder as? ProgressbarViewHolder)?.bind(true)
     }
 
-    fun add(repo : MovieBindModel?) {
-        list.add(repo)
+    fun add(movie: MovieBindModel?) {
+        list.add(movie)
         notifyItemInserted(list.size -1)
     }
 
-    fun addAll(repos : List<MovieBindModel>) {
-        list.addAll(repos)
-        notifyItemRangeChanged( repos.size,list.size -1)
+    fun addAll(movies: List<MovieBindModel>) {
+        list.addAll(movies)
+        notifyItemRangeChanged( movies.size,list.size -1)
     }
 
     fun remove(position: Int) {
@@ -66,6 +66,7 @@ class PopularMoviesAdapter (private val context : Context?,
             Picasso.with(itemView.context)
                     .load(movie?.imageUrl)
                     .placeholder(R.mipmap.ic_launcher)
+                    .error(R.mipmap.ic_launcher_round)
                     .fit()
                     .priority(Picasso.Priority.HIGH)
                     .into(itemView.findViewById(R.id.movie_item_list_card_view_image_view),
