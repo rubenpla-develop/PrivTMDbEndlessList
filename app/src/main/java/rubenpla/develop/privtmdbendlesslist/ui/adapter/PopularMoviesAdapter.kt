@@ -21,19 +21,39 @@ class PopularMoviesAdapter (private val context : Context?,
                             private val listener : (MovieBindModel?) -> Unit)
     : BaseMoviesAdapter(context, list) {
 
+    private val ITEM = 0
+    private val LOADING = 1
+
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == -1)
-                    ProgressbarViewHolder(LayoutInflater.from(context)
-                            .inflate(R.layout.movie_item_progress, parent, false))
-               else
-                    MovieViewHolder(LayoutInflater.from(context).inflate(R.layout.movie_item_list,
-                            parent, false))
+        val viewToReturn: Int = viewType
+        val holder : RecyclerView.ViewHolder
+
+        holder = when (viewToReturn) {
+            ITEM -> {
+                MovieViewHolder(LayoutInflater.from(context).inflate(R.layout.movie_item_list,
+                    parent, false))
+            }
+            LOADING -> {
+                ProgressbarViewHolder(LayoutInflater.from(context)
+                    .inflate(R.layout.movie_item_progress, parent, false))
+            }
+            else -> {
+                MovieViewHolder(LayoutInflater.from(context).inflate(R.layout.movie_item_list,
+                        parent, false))
+            }
+        }
+
+        return holder
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
-        if (holder is MovieViewHolder)
+        when (holder) {
+            is MovieViewHolder -> holder.bind(list[position], listener)
+            is ProgressbarViewHolder -> holder.bind(true)
+        }
+ /*       if (holder is MovieViewHolder)
             holder.bind(list[position], listener)
-        else (holder as? ProgressbarViewHolder)?.bind(true)
+        else (holder as? ProgressbarViewHolder)?.bind(true)*/
     }
 
     fun add(movie: MovieBindModel?) {
