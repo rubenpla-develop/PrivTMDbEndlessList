@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:bind="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
         <variable
             name="progressBar"
-            type="rubenpla.develop.privtmdbendlesslist.bind.model.ProgressbarBindModel"/>
+            type="rubenpla.develop.privtmdbendlesslist.bind.model.ProgressbarBindModel" />
 
     </data>
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize">
+    <LinearLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:gravity="center_horizontal">
 
-    <ProgressBar
-        android:id="@+id/movie_item_progress_progressbar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        />
-
-</FrameLayout>
+        <ProgressBar
+            android:id="@+id/movie_item_progress_progressbar"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:foregroundGravity="center"/>
+    </LinearLayout>
 </layout>

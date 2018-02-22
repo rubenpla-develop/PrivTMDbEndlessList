@@ -21,12 +21,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="@color/list_background"
         tools:Context="rubenpla.develop.privtmdbendlesslist.ui.fragment.PopularMoviesFragment">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/popular_movies_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/activity_margin_half"
+            android:layout_marginEnd="@dimen/activity_margin_half"
+            android:layout_marginBottom="@dimen/activity_margin_half"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             bind:resetLoading="@{popularMoviesModel.resetLoading}"
             bind:visibleThreshold="@{popularMoviesModel.visibleThreshold}"
@@ -34,8 +38,6 @@
             tools:listitem="@layout/movie_item_list"/>
 
     </LinearLayout>
-
-
 </layout>
 
 
