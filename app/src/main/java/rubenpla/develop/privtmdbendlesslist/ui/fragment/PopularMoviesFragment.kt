@@ -61,7 +61,7 @@ class PopularMoviesFragment : Fragment(), PopularMoviesFragmentView {
 
     private fun setBindings() {
         popularMoviesFragmentModel = PopularMoviesFragmentBindModel()
-        popularMoviesFragmentModel.visibleThreshold = 5
+        popularMoviesFragmentModel.visibleThreshold = 10
         binding.popularMoviesModel = popularMoviesFragmentModel
     }
 
@@ -80,21 +80,16 @@ class PopularMoviesFragment : Fragment(), PopularMoviesFragmentView {
     }
 
     override fun showProgress(): Boolean {
-        binding.popularMoviesRecyclerview.post { popularMoviesAdapter.add(null) }
+        popularMoviesAdapter.addLoadingView()
 
         return true
     }
 
     override fun hideProgress(): Boolean {
         if (list.size > 0 && null == list[list.size - 1]) {
-            popularMoviesAdapter.remove(list.size -1)
+           // popularMoviesAdapter.remove(list.size -1)
+            popularMoviesAdapter.removeLoadingView()
         }
-
-        /*if (binding.isRefreshing) {
-            popularMoviesAdapter.clear()
-            binding. = false
-            mainActivityModel.resetLoading = true
-        }*/
 
         return false
     }
