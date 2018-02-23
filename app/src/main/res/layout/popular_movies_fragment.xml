@@ -30,7 +30,6 @@
             android:layout_height="match_parent"
             android:layout_marginStart="@dimen/activity_margin_half"
             android:layout_marginEnd="@dimen/activity_margin_half"
-            android:layout_marginBottom="@dimen/activity_margin_half"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             bind:resetLoading="@{popularMoviesModel.resetLoading}"
             bind:visibleThreshold="@{popularMoviesModel.visibleThreshold}"

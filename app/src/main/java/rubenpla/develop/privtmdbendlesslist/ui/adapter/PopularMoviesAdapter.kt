@@ -126,8 +126,7 @@ import rubenpla.develop.privtmdbendlesslist.ui.adapter.base.BaseMoviesAdapter
                  ITEM -> {
                     Picasso.with(itemView.context)
                             .load(movie?.imageUrl)
-                            .placeholder(R.mipmap.ic_launcher)
-                            .error(R.mipmap.ic_launcher_round)
+                            .error(R.mipmap.ic_launcher)
                             .fit()
                             .priority(Picasso.Priority.HIGH)
                             .into(itemView.findViewById(R.id.movie_item_list_card_view_image_view),
