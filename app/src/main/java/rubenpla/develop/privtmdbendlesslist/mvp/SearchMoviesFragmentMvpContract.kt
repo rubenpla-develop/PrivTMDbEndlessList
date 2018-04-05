@@ -6,7 +6,7 @@ import rubenpla.develop.privtmdbendlesslist.data.model.MoviesResultsItem
 import rubenpla.develop.privtmdbendlesslist.mvp.base.BasePresenter
 import rubenpla.develop.privtmdbendlesslist.mvp.base.BaseView
 
-class SearchMoviesFragmentMvpContract {
+interface SearchMoviesFragmentMvpContract {
 
     interface SearchMoviesFragmentView : BaseView<SearchMoviesFragmentPresenter> {
         fun showSelectedMovie(item : MoviesResultsItem?)
