@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,10 +11,35 @@
         android:layout_height="wrap_content" />
 
 
-    <android.support.v7.widget.RecyclerView
-            android:id="@+id/search_movies_recyclerview"
+    <RelativeLayout
+        android:id="@+id/search_movies_movie_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/activity_margin"
+        android:layout_below="@id/search_movies_search_view_component">
+
+        <ImageView
+            android:id="@+id/search_movies_movie_container_movie_poster"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:src="@mipmap/ic_launcher_round"/>
+
+        <TextView
+            android:id="@+id/search_movies_movie_container_movie_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_margin"
+            android:layout_below="@id/search_movies_movie_container_movie_poster"
+            android:layout_alignParentEnd="true"
+            tools:text="2017"/>
+
+        <TextView
+            android:id="@+id/search_movies_movie_container_movie_description"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/search_movies_search_view_component"/>
+            android:layout_height="wrap_content"
+            tools:text="@string/lorem_ipsum_template"
+            android:layout_below="@id/search_movies_movie_container_movie_year"/>
+    </RelativeLayout>
 
 </RelativeLayout>
