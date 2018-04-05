@@ -13,7 +13,6 @@ import rubenpla.develop.privtmdbendlesslist.mvp.SearchMoviesFragmentMvpContract.
 import rubenpla.develop.privtmdbendlesslist.mvp.SearchMoviesFragmentMvpContract.SearchMoviesFragmentView
 import rubenpla.develop.privtmdbendlesslist.mvp.presenter.SearchMoviesFragmentPresenterImpl
 
-
 class SearchMovieFragment : Fragment(), SearchMoviesFragmentView {
 
     private lateinit var presenter: SearchMoviesFragmentPresenter

@@ -4,9 +4,6 @@ import android.databinding.BaseObservable
 import android.databinding.Bindable
 import rubenpla.develop.privtmdbendlesslist.BR
 
-/**
- * Created by alten on 9/2/18.
- */
 class PopularMoviesFragmentBindModel : BaseObservable() {
 
     @get:Bindable

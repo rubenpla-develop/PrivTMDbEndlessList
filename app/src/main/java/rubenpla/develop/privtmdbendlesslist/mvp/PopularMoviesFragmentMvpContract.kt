@@ -6,9 +6,6 @@ import rubenpla.develop.privtmdbendlesslist.data.model.MoviesResultsItem
 import rubenpla.develop.privtmdbendlesslist.mvp.base.BasePresenter
 import rubenpla.develop.privtmdbendlesslist.mvp.base.BaseView
 
-/**
- * Created by alten on 13/2/18.
- */
 interface PopularMoviesFragmentMvpContract {
 
     interface PopularMoviesFragmentView : BaseView<PopularMoviesFragmentPresenter> {

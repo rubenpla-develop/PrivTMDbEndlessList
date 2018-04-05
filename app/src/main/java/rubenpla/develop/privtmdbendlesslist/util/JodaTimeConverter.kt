@@ -5,9 +5,6 @@ import org.joda.time.LocalDate
 import org.joda.time.format.DateTimeFormat
 import java.lang.Long.valueOf
 
-/**
- * Created by alten on 22/2/18.
- */
 class JodaTimeConverter {
 
     private val DATE_PATTERN = "yyyy-MM-dd"
@@ -24,7 +21,7 @@ class JodaTimeConverter {
         return localDate.year
     }
 
-    fun parseDateFromStringPatternToMillis(date: String): String? {
+    private fun parseDateFromStringPatternToMillis(date: String): String? {
         var dateInMillis: String? = null
 
         try {

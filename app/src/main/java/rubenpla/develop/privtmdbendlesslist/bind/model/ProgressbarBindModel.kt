@@ -4,9 +4,6 @@ import android.databinding.BaseObservable
 import android.databinding.Bindable
 import rubenpla.develop.privtmdbendlesslist.BR
 
-/**
- * Created by alten on 13/2/18.
- */
 class ProgressbarBindModel : BaseObservable() {
 
     @get:Bindable

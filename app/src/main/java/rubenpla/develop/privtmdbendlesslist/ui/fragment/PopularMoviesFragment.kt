@@ -21,9 +21,6 @@ import rubenpla.develop.privtmdbendlesslist.mvp.presenter.PopularMoviesFragmentP
 import rubenpla.develop.privtmdbendlesslist.ui.adapter.PopularMoviesAdapter
 import rubenpla.develop.privtmdbendlesslist.util.Mapper
 
-/**
- * Created by alten on 4/2/18.
- */
 class PopularMoviesFragment : Fragment(), PopularMoviesFragmentView {
 
     private lateinit var presenter : PopularMoviesFragmentPresenter

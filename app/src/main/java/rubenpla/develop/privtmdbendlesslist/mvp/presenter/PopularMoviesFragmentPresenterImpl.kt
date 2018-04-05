@@ -11,9 +11,6 @@ import rubenpla.develop.privtmdbendlesslist.data.repository.PopularMoviesReposit
 import rubenpla.develop.privtmdbendlesslist.mvp.PopularMoviesFragmentMvpContract.PopularMoviesFragmentPresenter
 import rubenpla.develop.privtmdbendlesslist.mvp.PopularMoviesFragmentMvpContract.PopularMoviesFragmentView
 
-/**
- * Created by alten on 14/2/18.
- */
 class PopularMoviesFragmentPresenterImpl(private val view : PopularMoviesFragmentView) :
     PopularMoviesFragmentPresenter {
 

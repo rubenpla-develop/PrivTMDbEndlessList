@@ -13,9 +13,6 @@ import rubenpla.develop.privtmdbendlesslist.databinding.MovieItemListBinding
 import rubenpla.develop.privtmdbendlesslist.databinding.MovieItemProgressBinding
 import rubenpla.develop.privtmdbendlesslist.ui.adapter.base.BaseMoviesAdapter
 
-/**
- * Created by alten on 13/2/18.
- */
  open class PopularMoviesAdapter (private val context : Context?,
                             private val list : MutableList<MovieBindModel?>,
                             private val listener : (MovieBindModel?) -> Unit)
@@ -117,7 +114,7 @@ import rubenpla.develop.privtmdbendlesslist.ui.adapter.base.BaseMoviesAdapter
      *    HOLDERS
      **/
     internal  class MovieViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
-        private val binding : MovieItemListBinding = DataBindingUtil.bind(itemView)
+        private val binding : MovieItemListBinding? = DataBindingUtil.bind(itemView)
 
         fun bind(movie : MovieBindModel?, listener : (MovieBindModel?) -> Unit) {
 
@@ -132,7 +129,7 @@ import rubenpla.develop.privtmdbendlesslist.ui.adapter.base.BaseMoviesAdapter
                             .into(itemView.findViewById(R.id.movie_item_list_card_view_image_view),
                                     null)
 
-                    binding.movieBindModel = movie
+                    binding?.movieBindModel = movie
                     itemView.setOnClickListener { listener(movie) }
                 }
                 //TODO 'LOADING' item
@@ -142,10 +139,10 @@ import rubenpla.develop.privtmdbendlesslist.ui.adapter.base.BaseMoviesAdapter
     }
 
     internal class ProgressbarViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val binding : MovieItemProgressBinding = DataBindingUtil.bind(itemView)
+        private val binding : MovieItemProgressBinding? = DataBindingUtil.bind(itemView)
 
         fun bind (isIndeterminate : Boolean) {
-            binding.movieItemProgressProgressbar.isIndeterminate = isIndeterminate
+            binding!!.movieItemProgressProgressbar.isIndeterminate = isIndeterminate
         }
     }
 
