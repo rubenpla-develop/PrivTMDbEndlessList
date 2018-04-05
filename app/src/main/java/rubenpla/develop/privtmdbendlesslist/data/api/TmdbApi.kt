@@ -7,9 +7,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 import rubenpla.develop.privtmdbendlesslist.data.model.MoviesResponse
 
-/**
- * Created by alten on 14/2/18.
- */
 interface TmdbApi {
 
     @GET("movie/popular")

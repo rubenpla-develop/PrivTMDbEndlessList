@@ -6,16 +6,16 @@ import rubenpla.develop.privtmdbendlesslist.data.model.MoviesResultsItem
 import rubenpla.develop.privtmdbendlesslist.mvp.base.BasePresenter
 import rubenpla.develop.privtmdbendlesslist.mvp.base.BaseView
 
-interface PopularMoviesFragmentMvpContract {
+class SearchMoviesFragmentMvpContract {
 
-    interface PopularMoviesFragmentView : BaseView<PopularMoviesFragmentPresenter> {
-        fun showItems(items: List<MoviesResultsItem?>?)
+    interface SearchMoviesFragmentView : BaseView<SearchMoviesFragmentPresenter> {
+        fun showSelectedMovie(item : MoviesResultsItem?)
         fun showProgress(): Boolean
         fun hideProgress(): Boolean
     }
 
-    interface PopularMoviesFragmentPresenter : BasePresenter {
-        fun getPopularMovies(page: Int): Flowable<MoviesResponse>?
+    interface SearchMoviesFragmentPresenter : BasePresenter {
+        fun getSearchResults(page: Int): Flowable<MoviesResponse>?
         fun onLoadMore(page : Int)
     }
 }

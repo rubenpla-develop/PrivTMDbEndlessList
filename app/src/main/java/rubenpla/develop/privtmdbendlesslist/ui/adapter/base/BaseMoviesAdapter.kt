@@ -5,9 +5,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import rubenpla.develop.privtmdbendlesslist.bind.model.MovieBindModel
 
-/**
- * Created by alten on 13/2/18.
- */
 open class BaseMoviesAdapter(private val context:
                              Context?, private val list: MutableList<MovieBindModel?>)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

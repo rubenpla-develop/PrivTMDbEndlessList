@@ -4,9 +4,6 @@ import android.support.v7.widget.RecyclerView
 import com.fueled.recyclerviewbindings.widget.scroll.LayoutManagerType
 import com.fueled.recyclerviewbindings.widget.scroll.RecyclerViewUtil
 
-/**
- * Created by alten on 13/2/18.
- */
 class RecyclerViewScrollCallback (private val visibleThreshold : Int,
                                   private val layoutManager : RecyclerView.LayoutManager)
     : RecyclerView.OnScrollListener() {

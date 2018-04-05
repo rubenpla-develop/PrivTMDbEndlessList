@@ -129,7 +129,7 @@ import rubenpla.develop.privtmdbendlesslist.ui.adapter.base.BaseMoviesAdapter
                             .into(itemView.findViewById(R.id.movie_item_list_card_view_image_view),
                                     null)
 
-                    binding!!.movieBindModel = movie
+                    binding?.movieBindModel = movie
                     itemView.setOnClickListener { listener(movie) }
                 }
                 //TODO 'LOADING' item
@@ -142,7 +142,7 @@ import rubenpla.develop.privtmdbendlesslist.ui.adapter.base.BaseMoviesAdapter
         private val binding : MovieItemProgressBinding? = DataBindingUtil.bind(itemView)
 
         fun bind (isIndeterminate : Boolean) {
-            binding?.movieItemProgressProgressbar!!.isIndeterminate = isIndeterminate
+            binding!!.movieItemProgressProgressbar.isIndeterminate = isIndeterminate
         }
     }
 
