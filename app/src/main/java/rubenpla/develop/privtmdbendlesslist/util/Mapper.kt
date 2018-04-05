@@ -9,8 +9,8 @@ object Mapper {
     fun mapToMovieBindModelFromApi(movie: MoviesResultsItem?): MovieBindModel {
         val movieBindModel = MovieBindModel()
         movieBindModel.movieName = movie?.title!!
-        movieBindModel.overview = movie?.overview
-        movieBindModel.yearOfMovie = mapYearOfMovieToJustYear(movie?.releaseDate!!)
+        movieBindModel.overview = movie.overview
+        movieBindModel.yearOfMovie = mapYearOfMovieToJustYear(movie.releaseDate!!)
         movieBindModel.imageUrl = mapImageUrlToDrawable(movie.posterPath)
         return movieBindModel
     }
