@@ -1,45 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <AutoCompleteTextView
-        android:id="@+id/search_movies_search_view_component"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-
-    <RelativeLayout
-        android:id="@+id/search_movies_movie_container"
+    <FrameLayout
+        android:id="@+id/search_movie_autocomplete_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/activity_margin"
-        android:layout_below="@id/search_movies_search_view_component">
+        android:visibility="visible" >
 
-        <ImageView
-            android:id="@+id/search_movies_movie_container_movie_poster"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_centerHorizontal="true"
-            android:src="@mipmap/ic_launcher_round"/>
+        <android.support.v7.widget.SearchView
+            android:id="@+id/search_movie_autocomplete_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/search_movies_movie_container_movie_year"
+        <ProgressBar
+            android:id="@+id/search_movie_autocomplete_textview_progressbar"
+            style="?android:attr/progressBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/activity_margin"
-            android:layout_below="@id/search_movies_movie_container_movie_poster"
-            android:layout_alignParentEnd="true"
-            tools:text="2017"/>
+            android:layout_marginEnd="8dp"
+            android:visibility="invisible"
+            android:layout_gravity="center_vertical|end" />
 
-        <TextView
-            android:id="@+id/search_movies_movie_container_movie_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:text="@string/lorem_ipsum_template"
-            android:layout_below="@id/search_movies_movie_container_movie_year"/>
-    </RelativeLayout>
+    </FrameLayout>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/popular_movies_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/activity_margin_half"
+        android:layout_marginEnd="@dimen/activity_margin_half"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        android:layout_below="@id/search_movie_autocomplete_container"
+        tools:listitem="@layout/movie_item_list"/>
 </RelativeLayout>
