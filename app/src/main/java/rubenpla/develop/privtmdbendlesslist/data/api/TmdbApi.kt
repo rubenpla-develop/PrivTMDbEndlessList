@@ -13,7 +13,9 @@ interface TmdbApi {
     fun getPopularMovies(@Query("api_key") api_key: String,
                          @Query("page") page: Int): Flowable<MoviesResponse>
 
-
+    @GET("search/movie")
+    fun searchMovies(@Query("api_key") api_key: String,
+                         @Query("page") page: Int): Flowable<MoviesResponse>
     /*companion object Factory {
         @Volatile
         private var retrofit : Retrofit? = null
