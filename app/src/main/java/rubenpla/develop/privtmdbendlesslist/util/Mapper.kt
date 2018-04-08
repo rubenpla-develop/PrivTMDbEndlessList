@@ -22,8 +22,8 @@ object Mapper {
    }
 
     private fun mapYearOfMovieToJustYear(date : String) : String {
-        val date = jodaTimeInstance.getYearFromDate(date)
+        val year = jodaTimeInstance.getYearFromDate(date)
 
-        return date.toString()
+        return year.toString()
     }
 }

@@ -56,6 +56,12 @@ class PopularMoviesFragment : Fragment(), PopularMoviesFragmentView {
         binding.presenter = presenter
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        presenter.terminate()
+    }
+
     private fun setBindings() {
         popularMoviesFragmentModel = PopularMoviesFragmentBindModel()
         popularMoviesFragmentModel.visibleThreshold = 10

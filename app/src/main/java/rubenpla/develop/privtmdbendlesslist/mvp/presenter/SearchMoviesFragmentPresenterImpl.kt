@@ -9,6 +9,7 @@ import rubenpla.develop.privtmdbendlesslist.BuildConfig
 import rubenpla.develop.privtmdbendlesslist.data.api.TmdbApi
 import rubenpla.develop.privtmdbendlesslist.data.model.MoviesResponse
 import rubenpla.develop.privtmdbendlesslist.data.repository.PopularMoviesRepository
+import rubenpla.develop.privtmdbendlesslist.data.repository.SearchMoviesRepository
 import rubenpla.develop.privtmdbendlesslist.mvp.SearchMoviesFragmentMvpContract
 import rubenpla.develop.privtmdbendlesslist.mvp.SearchMoviesFragmentMvpContract.SearchMoviesFragmentView
 import java.util.concurrent.TimeUnit
@@ -32,8 +33,9 @@ class SearchMoviesFragmentPresenterImpl(private val view : SearchMoviesFragmentV
 
         val disposable = paginator.onBackpressureDrop()
                 .debounce(1000, TimeUnit.MILLISECONDS)
-                .filter{ !loading }
+                .filter{ currentTextQuery != "" }
                 .distinctUntilChanged()
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .switchMap{ getMovieResults(currentPage)
                         ?.subscribeOn(Schedulers.io())
@@ -55,18 +57,18 @@ class SearchMoviesFragmentPresenterImpl(private val view : SearchMoviesFragmentV
     }
 
     override fun getSearchResults(textToSearch : String, page: Int) {
+        currentPage = 1
         currentTextQuery = textToSearch
         paginator.onNext(page)
     }
 
     private fun getMovieResults(page : Int) : Flowable<MoviesResponse>? {
-        //TODO CHANGE REPOSITORY DECLARATION to SearchMoviesRepository (NOT IMPLEMENTED YET
-        val popularMoviesRepository  = PopularMoviesRepository(TmdbApi.getInstance())
+        val searchMoviesRepository  = SearchMoviesRepository(TmdbApi.getInstance())
 
         return Flowable.just(page)
-
-                .flatMap { _ -> popularMoviesRepository
-                        .getPopularMoviesFromApi(BuildConfig.THE_MOVIE_DB_API_TOKEN, page)
+                .flatMap { _ -> searchMoviesRepository
+                        .searchMoviesFromApi(BuildConfig.THE_MOVIE_DB_API_TOKEN, currentTextQuery,
+                                page)
                 }
     }
 

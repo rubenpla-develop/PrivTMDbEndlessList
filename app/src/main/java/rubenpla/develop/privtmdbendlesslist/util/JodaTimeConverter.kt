@@ -8,6 +8,7 @@ import java.lang.Long.valueOf
 class JodaTimeConverter {
 
     private val DATE_PATTERN = "yyyy-MM-dd"
+    private val NO_DATA_AVAILABLE = "NO_DATA_AVAILABLE"
 
     companion object {
         val jodaTimeInstance  = JodaTimeConverter()
@@ -15,10 +16,16 @@ class JodaTimeConverter {
 
     fun getYearFromDate(date: String): Int {
         val dateInMillis = parseDateFromStringPatternToMillis(date)
+        val localDate : LocalDate
 
-        val localDate = LocalDate(valueOf(dateInMillis))
+        if (dateInMillis != NO_DATA_AVAILABLE) {
+            localDate = LocalDate(valueOf(dateInMillis))
+        } else {
+            return 0
+        }
 
         return localDate.year
+
     }
 
     private fun parseDateFromStringPatternToMillis(date: String): String? {
@@ -26,18 +33,24 @@ class JodaTimeConverter {
 
         try {
             val formatter = DateTimeFormat.forPattern(DATE_PATTERN)
-            var dt = formatter.parseDateTime(date)
 
-            val month = dt.monthOfYear
-            val day = dt.dayOfMonth
-            val year = dt.year
+            if (date != "") {
+                var dt = formatter.parseDateTime(date)
 
-            val localDate = LocalDate(year, month, day)
-            dt = localDate.toDateTimeAtCurrentTime()
-            dateInMillis = dt.millis.toString()
+                val month = dt.monthOfYear
+                val day = dt.dayOfMonth
+                val year = dt.year
+
+                val localDate = LocalDate(year, month, day)
+                dt = localDate.toDateTimeAtCurrentTime()
+                dateInMillis = dt.millis.toString()
+            } else {
+                dateInMillis = NO_DATA_AVAILABLE
+            }
+
         } catch (illegalArgumentException: IllegalArgumentException) {
-            dateInMillis = ""
-            Log.e(JodaTimeConverter::class.simpleName, "IllegalArgumentException : "
+            dateInMillis = "1972-1-1" // TODO workarround
+            Log.e("JODA-TIME", "IllegalArgumentException : "
                     + illegalArgumentException.localizedMessage)
 
         } finally {

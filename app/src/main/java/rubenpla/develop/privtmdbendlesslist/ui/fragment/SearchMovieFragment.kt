@@ -38,6 +38,8 @@ class SearchMovieFragment : Fragment(), SearchMoviesFragmentView {
         }
 
         override fun onQueryTextChange(newText: String?): Boolean {
+            popularMoviesAdapter.clear()
+            binding.popularMoviesRecyclerview.adapter = popularMoviesAdapter
             presenter.getSearchResults(newText!!, 2)
 
             return false
@@ -70,6 +72,12 @@ class SearchMovieFragment : Fragment(), SearchMoviesFragmentView {
         binding.popularMoviesRecyclerview.adapter =popularMoviesAdapter
         search_movie_textview.setOnQueryTextListener(onQueryTextListener)
         binding.presenter = presenter
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        presenter.terminate()
     }
 
     private fun setBindings() {
