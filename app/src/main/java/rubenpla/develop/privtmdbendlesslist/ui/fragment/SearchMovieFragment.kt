@@ -4,24 +4,45 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.annotation.NonNull
 import android.support.v4.app.Fragment
+import android.support.v7.widget.DefaultItemAnimator
+import android.support.v7.widget.SearchView.OnQueryTextListener
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.Toast
+import kotlinx.android.synthetic.main.search_movie_fragment.*
 import rubenpla.develop.privtmdbendlesslist.R
 import rubenpla.develop.privtmdbendlesslist.bind.BindingComponent
+import rubenpla.develop.privtmdbendlesslist.bind.model.MovieBindModel
 import rubenpla.develop.privtmdbendlesslist.bind.model.SearchMoviesFragmentBindModel
 import rubenpla.develop.privtmdbendlesslist.data.model.MoviesResultsItem
 import rubenpla.develop.privtmdbendlesslist.databinding.SearchMovieFragmentBinding
 import rubenpla.develop.privtmdbendlesslist.mvp.SearchMoviesFragmentMvpContract.SearchMoviesFragmentPresenter
 import rubenpla.develop.privtmdbendlesslist.mvp.SearchMoviesFragmentMvpContract.SearchMoviesFragmentView
 import rubenpla.develop.privtmdbendlesslist.mvp.presenter.SearchMoviesFragmentPresenterImpl
+import rubenpla.develop.privtmdbendlesslist.ui.adapter.PopularMoviesAdapter
+import rubenpla.develop.privtmdbendlesslist.util.Mapper
 
 class SearchMovieFragment : Fragment(), SearchMoviesFragmentView {
 
     private lateinit var presenter: SearchMoviesFragmentPresenter
     private lateinit var searchMoviesFragmentModel: SearchMoviesFragmentBindModel
     private lateinit var binding : SearchMovieFragmentBinding
+    private var list = arrayListOf<MovieBindModel?>()
+    private lateinit var popularMoviesAdapter : PopularMoviesAdapter
+
+    private val onQueryTextListener : OnQueryTextListener = object : OnQueryTextListener {
+        override fun onQueryTextSubmit(query: String?): Boolean {
+            return false
+        }
+
+        override fun onQueryTextChange(newText: String?): Boolean {
+            presenter.getSearchResults(newText!!, 2)
+
+            return false
+        }
+    }
 
     companion object {
 
@@ -42,12 +63,13 @@ class SearchMovieFragment : Fragment(), SearchMoviesFragmentView {
         super.onViewCreated(view, savedInstanceState)
 
         setBindings()
-        presenter = SearchMoviesFragmentPresenterImpl(this)
-        binding.presenter = presenter
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+        popularMoviesAdapter = PopularMoviesAdapter(context, list) {}
+        presenter = SearchMoviesFragmentPresenterImpl(this)
+        binding.popularMoviesRecyclerview.itemAnimator = DefaultItemAnimator()
+        binding.popularMoviesRecyclerview.adapter =popularMoviesAdapter
+        search_movie_textview.setOnQueryTextListener(onQueryTextListener)
+        binding.presenter = presenter
     }
 
     private fun setBindings() {
@@ -56,17 +78,29 @@ class SearchMovieFragment : Fragment(), SearchMoviesFragmentView {
         binding.searchMoviesModel = searchMoviesFragmentModel
     }
 
+    override fun showItems(items: List<MoviesResultsItem?>?) {
+        val mappedItems = arrayListOf<MovieBindModel>()
+        items?.map { mappedItems.add(Mapper.mapToMovieBindModelFromApi(it))}
+        popularMoviesAdapter.addAll(mappedItems)
+    }
+
     override fun showSelectedMovie(item: MoviesResultsItem?) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun showProgress(): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        popularMoviesAdapter.addLoadingView()
+
+        return true
     }
 
     override fun hideProgress(): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+        if (list.size > 0 && null == list[list.size - 1]) {
+            // popularMoviesAdapter.remove(list.size -1)
+            popularMoviesAdapter.removeLoadingView()
+        }
+
+        return false    }
 
     override fun setPresenter(@NonNull presenter: SearchMoviesFragmentPresenter) {
         this.presenter = checkNotNull(presenter)

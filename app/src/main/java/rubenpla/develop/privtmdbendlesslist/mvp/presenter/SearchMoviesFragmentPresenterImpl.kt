@@ -1,30 +1,76 @@
 package rubenpla.develop.privtmdbendlesslist.mvp.presenter
 
 import io.reactivex.Flowable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.processors.PublishProcessor
+import io.reactivex.schedulers.Schedulers
+import rubenpla.develop.privtmdbendlesslist.BuildConfig
+import rubenpla.develop.privtmdbendlesslist.data.api.TmdbApi
 import rubenpla.develop.privtmdbendlesslist.data.model.MoviesResponse
+import rubenpla.develop.privtmdbendlesslist.data.repository.PopularMoviesRepository
 import rubenpla.develop.privtmdbendlesslist.mvp.SearchMoviesFragmentMvpContract
 import rubenpla.develop.privtmdbendlesslist.mvp.SearchMoviesFragmentMvpContract.SearchMoviesFragmentView
+import java.util.concurrent.TimeUnit
 
 class SearchMoviesFragmentPresenterImpl(private val view : SearchMoviesFragmentView)
-    : SearchMoviesFragmentMvpContract.SearchMoviesFragmentPresenter{
+    : SearchMoviesFragmentMvpContract.SearchMoviesFragmentPresenter {
+
+    private var currentPage: Int = 0
+    private var currentTextQuery : String = ""
+    private var loading : Boolean = false
+    private val disposables : CompositeDisposable = CompositeDisposable()
+    private lateinit var paginator : PublishProcessor<Int>
 
     init {
         initialize()
     }
 
     override fun initialize() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        currentPage = 1
+        paginator = PublishProcessor.create()
+
+        val disposable = paginator.onBackpressureDrop()
+                .debounce(1000, TimeUnit.MILLISECONDS)
+                .filter{ !loading }
+                .distinctUntilChanged()
+                .observeOn(AndroidSchedulers.mainThread())
+                .switchMap{ getMovieResults(currentPage)
+                        ?.subscribeOn(Schedulers.io())
+                        ?.observeOn(AndroidSchedulers.mainThread()) }
+                .subscribe({
+                    loading = view.hideProgress()
+                    view.showItems(it.results)
+                    currentPage++
+                }, {
+                    loading = view.hideProgress()
+                    view.showMessage(it.localizedMessage)
+                } )
+
+        disposables.add(disposable)
     }
 
     override fun terminate() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        disposables.clear()
     }
 
-    override fun getSearchResults(page: Int): Flowable<MoviesResponse>? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getSearchResults(textToSearch : String, page: Int) {
+        currentTextQuery = textToSearch
+        paginator.onNext(page)
+    }
+
+    private fun getMovieResults(page : Int) : Flowable<MoviesResponse>? {
+        //TODO CHANGE REPOSITORY DECLARATION to SearchMoviesRepository (NOT IMPLEMENTED YET
+        val popularMoviesRepository  = PopularMoviesRepository(TmdbApi.getInstance())
+
+        return Flowable.just(page)
+
+                .flatMap { _ -> popularMoviesRepository
+                        .getPopularMoviesFromApi(BuildConfig.THE_MOVIE_DB_API_TOKEN, page)
+                }
     }
 
     override fun onLoadMore(page: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        paginator.onNext(page)
     }
 }
