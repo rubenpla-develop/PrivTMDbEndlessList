@@ -1,39 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <FrameLayout
-        android:id="@+id/search_movie_autocomplete_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="visible" >
+    <data>
 
-        <android.support.v7.widget.SearchView
-            android:id="@+id/search_movie_autocomplete_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+        <import type="android.support.v4.app.Fragment" />
 
-        <ProgressBar
-            android:id="@+id/search_movie_autocomplete_textview_progressbar"
-            style="?android:attr/progressBarStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:visibility="invisible"
-            android:layout_gravity="center_vertical|end" />
+        <variable
+            name="searchMoviesModel"
+            type="rubenpla.develop.privtmdbendlesslist.bind.model.SearchMoviesFragmentBindModel" />
 
-    </FrameLayout>
+        <variable
+            name="presenter"
+            type="rubenpla.develop.privtmdbendlesslist.mvp.SearchMoviesFragmentMvpContract.SearchMoviesFragmentPresenter" />
+    </data>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/popular_movies_recyclerview"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/activity_margin_half"
-        android:layout_marginEnd="@dimen/activity_margin_half"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        android:layout_below="@id/search_movie_autocomplete_container"
-        tools:listitem="@layout/movie_item_list"/>
-</RelativeLayout>
+        android:background="@color/list_background"
+        tools:Context="rubenpla.develop.privtmdbendlesslist.ui.fragment.SearchMoviesFragment">
+
+        <FrameLayout
+            android:id="@+id/search_movie_autocomplete_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible">
+
+            <android.support.v7.widget.SearchView
+                android:id="@+id/search_movie_autocomplete_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <ProgressBar
+                android:id="@+id/search_movie_autocomplete_textview_progressbar"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="8dp"
+                android:visibility="invisible" />
+
+        </FrameLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/popular_movies_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/search_movie_autocomplete_container"
+            android:layout_marginEnd="@dimen/activity_margin_half"
+            android:layout_marginStart="@dimen/activity_margin_half"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            bind:resetLoading="@{searchMoviesModel.resetLoading}"
+            bind:visibleThreshold="@{searchMoviesModel.visibleThreshold}"
+            bind:onScrolledToBottom="@{(page) -> presenter.onLoadMore(page)}"
+            tools:listitem="@layout/movie_item_list" />
+    </RelativeLayout>
+</layout>
