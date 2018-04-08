@@ -14,7 +14,7 @@ interface TmdbApi {
                          @Query("page") page: Int): Flowable<MoviesResponse>
 
     @GET("search/movie")
-    fun searchMovies(@Query("api_key") api_key: String,
+    fun searchMovies(@Query("api_key") api_key: String, @Query("query") query : String,
                          @Query("page") page: Int): Flowable<MoviesResponse>
     /*companion object Factory {
         @Volatile
