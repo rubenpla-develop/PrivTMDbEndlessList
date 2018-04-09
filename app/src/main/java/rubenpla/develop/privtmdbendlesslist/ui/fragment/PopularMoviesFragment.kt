@@ -18,14 +18,14 @@ import rubenpla.develop.privtmdbendlesslist.databinding.PopularMoviesFragmentBin
 import rubenpla.develop.privtmdbendlesslist.mvp.PopularMoviesFragmentMvpContract.PopularMoviesFragmentPresenter
 import rubenpla.develop.privtmdbendlesslist.mvp.PopularMoviesFragmentMvpContract.PopularMoviesFragmentView
 import rubenpla.develop.privtmdbendlesslist.mvp.presenter.PopularMoviesFragmentPresenterImpl
-import rubenpla.develop.privtmdbendlesslist.ui.adapter.PopularMoviesAdapter
+import rubenpla.develop.privtmdbendlesslist.ui.adapter.MoviesAdapter
 import rubenpla.develop.privtmdbendlesslist.util.Mapper
 
 class PopularMoviesFragment : Fragment(), PopularMoviesFragmentView {
 
     private lateinit var presenter : PopularMoviesFragmentPresenter
     private lateinit var popularMoviesFragmentModel: PopularMoviesFragmentBindModel
-    private lateinit var popularMoviesAdapter : PopularMoviesAdapter
+    private lateinit var moviesAdapter : MoviesAdapter
     private var list = arrayListOf<MovieBindModel?>()
     private lateinit var binding : PopularMoviesFragmentBinding
 
@@ -49,10 +49,10 @@ class PopularMoviesFragment : Fragment(), PopularMoviesFragmentView {
 
         setBindings()
 
-        popularMoviesAdapter = PopularMoviesAdapter(context, list) {}
+        moviesAdapter = MoviesAdapter(context, list) {}
         presenter = PopularMoviesFragmentPresenterImpl(this)
         binding.popularMoviesRecyclerview.itemAnimator = DefaultItemAnimator()
-        binding.popularMoviesRecyclerview.adapter =popularMoviesAdapter
+        binding.popularMoviesRecyclerview.adapter = moviesAdapter
         binding.presenter = presenter
     }
 
@@ -79,19 +79,19 @@ class PopularMoviesFragment : Fragment(), PopularMoviesFragmentView {
     override fun showItems(items: List<MoviesResultsItem?>?) {
         val mappedItems = arrayListOf<MovieBindModel>()
         items?.map { mappedItems.add(Mapper.mapToMovieBindModelFromApi(it))}
-        popularMoviesAdapter.addAll(mappedItems)
+        moviesAdapter.addAll(mappedItems)
     }
 
     override fun showProgress(): Boolean {
-        popularMoviesAdapter.addLoadingView()
+        moviesAdapter.addLoadingView()
 
         return true
     }
 
     override fun hideProgress(): Boolean {
         if (list.size > 0 && null == list[list.size - 1]) {
-           // popularMoviesAdapter.remove(list.size -1)
-            popularMoviesAdapter.removeLoadingView()
+           // moviesAdapter.remove(list.size -1)
+            moviesAdapter.removeLoadingView()
         }
 
         return false

@@ -20,7 +20,7 @@ import rubenpla.develop.privtmdbendlesslist.databinding.SearchMovieFragmentBindi
 import rubenpla.develop.privtmdbendlesslist.mvp.SearchMoviesFragmentMvpContract.SearchMoviesFragmentPresenter
 import rubenpla.develop.privtmdbendlesslist.mvp.SearchMoviesFragmentMvpContract.SearchMoviesFragmentView
 import rubenpla.develop.privtmdbendlesslist.mvp.presenter.SearchMoviesFragmentPresenterImpl
-import rubenpla.develop.privtmdbendlesslist.ui.adapter.PopularMoviesAdapter
+import rubenpla.develop.privtmdbendlesslist.ui.adapter.MoviesAdapter
 import rubenpla.develop.privtmdbendlesslist.util.Mapper
 
 class SearchMovieFragment : Fragment(), SearchMoviesFragmentView {
@@ -29,7 +29,7 @@ class SearchMovieFragment : Fragment(), SearchMoviesFragmentView {
     private lateinit var searchMoviesFragmentModel: SearchMoviesFragmentBindModel
     private lateinit var binding : SearchMovieFragmentBinding
     private var list = arrayListOf<MovieBindModel?>()
-    private lateinit var popularMoviesAdapter : PopularMoviesAdapter
+    private lateinit var moviesAdapter : MoviesAdapter
 
     private val onQueryTextListener : OnQueryTextListener = object : OnQueryTextListener {
         override fun onQueryTextSubmit(query: String?): Boolean {
@@ -37,8 +37,8 @@ class SearchMovieFragment : Fragment(), SearchMoviesFragmentView {
         }
 
         override fun onQueryTextChange(newText: String?): Boolean {
-            popularMoviesAdapter.clear()
-            binding.popularMoviesRecyclerview.adapter = popularMoviesAdapter
+            moviesAdapter.clear()
+            binding.searchMoviesRecyclerview.adapter = moviesAdapter
             presenter.getSearchResults(newText!!, 2)
 
             return false
@@ -65,10 +65,10 @@ class SearchMovieFragment : Fragment(), SearchMoviesFragmentView {
 
         setBindings()
 
-        popularMoviesAdapter = PopularMoviesAdapter(context, list) {}
+        moviesAdapter = MoviesAdapter(context, list) {}
         presenter = SearchMoviesFragmentPresenterImpl(this)
-        binding.popularMoviesRecyclerview.itemAnimator = DefaultItemAnimator()
-        binding.popularMoviesRecyclerview.adapter =popularMoviesAdapter
+        binding.searchMoviesRecyclerview.itemAnimator = DefaultItemAnimator()
+        binding.searchMoviesRecyclerview.adapter = moviesAdapter
         search_movie_textview.setOnQueryTextListener(onQueryTextListener)
         binding.presenter = presenter
     }
@@ -88,7 +88,7 @@ class SearchMovieFragment : Fragment(), SearchMoviesFragmentView {
     override fun showItems(items: List<MoviesResultsItem?>?) {
         val mappedItems = arrayListOf<MovieBindModel>()
         items?.map { mappedItems.add(Mapper.mapToMovieBindModelFromApi(it))}
-        popularMoviesAdapter.addAll(mappedItems)
+        moviesAdapter.addAll(mappedItems)
     }
 
     override fun showSelectedMovie(item: MoviesResultsItem?) {
@@ -96,14 +96,14 @@ class SearchMovieFragment : Fragment(), SearchMoviesFragmentView {
     }
 
     override fun showProgress(): Boolean {
-        popularMoviesAdapter.addLoadingView()
+        moviesAdapter.addLoadingView()
 
         return true
     }
 
     override fun hideProgress(): Boolean {
         if (list.size > 0 && null == list[list.size - 1]) {
-            popularMoviesAdapter.removeLoadingView()
+            moviesAdapter.removeLoadingView()
         }
 
         return false    }

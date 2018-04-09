@@ -13,9 +13,9 @@ import rubenpla.develop.privtmdbendlesslist.databinding.MovieItemListBinding
 import rubenpla.develop.privtmdbendlesslist.databinding.MovieItemProgressBinding
 import rubenpla.develop.privtmdbendlesslist.ui.adapter.base.BaseMoviesAdapter
 
- open class PopularMoviesAdapter (private val context : Context?,
-                            private val list : MutableList<MovieBindModel?>,
-                            private val listener : (MovieBindModel?) -> Unit)
+ open class MoviesAdapter (private val context : Context?,
+                           private val list : MutableList<MovieBindModel?>,
+                           private val listener : (MovieBindModel?) -> Unit)
     : BaseMoviesAdapter(context, list) {
 
     private var isLoadingMoreItems: Boolean = false
