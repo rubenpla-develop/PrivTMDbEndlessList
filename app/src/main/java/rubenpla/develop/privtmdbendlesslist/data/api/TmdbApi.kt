@@ -16,27 +16,7 @@ interface TmdbApi {
     @GET("search/movie")
     fun searchMovies(@Query("api_key") api_key: String, @Query("query") query : String,
                          @Query("page") page: Int): Flowable<MoviesResponse>
-    /*companion object Factory {
-        @Volatile
-        private var retrofit : Retrofit? = null
 
-        private const val BASE_URL: String = "https://api.themoviedb.org/3/"
-
-        @Synchronized
-        fun getInstance(): TmdbApi? {
-            retrofit ?: synchronized(this) {
-                retrofit ?: buildRetrofit()
-            }
-
-            return retrofit?.create(TmdbApi::class.java)
-        }
-
-        private fun buildRetrofit() = retrofit2.Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-    }
-}*/
     companion object Factory {
         private const val BASE_URL: String = "https://api.themoviedb.org/3/"
 

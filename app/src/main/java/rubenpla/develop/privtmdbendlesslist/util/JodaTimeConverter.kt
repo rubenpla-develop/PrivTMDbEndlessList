@@ -25,7 +25,6 @@ class JodaTimeConverter {
         }
 
         return localDate.year
-
     }
 
     private fun parseDateFromStringPatternToMillis(date: String): String? {
@@ -49,7 +48,6 @@ class JodaTimeConverter {
             }
 
         } catch (illegalArgumentException: IllegalArgumentException) {
-            dateInMillis = "1972-1-1" // TODO workarround
             Log.e("JODA-TIME", "IllegalArgumentException : "
                     + illegalArgumentException.localizedMessage)
 

@@ -9,7 +9,6 @@ import android.support.v7.widget.SearchView.OnQueryTextListener
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.search_movie_fragment.*
 import rubenpla.develop.privtmdbendlesslist.R
@@ -104,7 +103,6 @@ class SearchMovieFragment : Fragment(), SearchMoviesFragmentView {
 
     override fun hideProgress(): Boolean {
         if (list.size > 0 && null == list[list.size - 1]) {
-            // popularMoviesAdapter.remove(list.size -1)
             popularMoviesAdapter.removeLoadingView()
         }
 
